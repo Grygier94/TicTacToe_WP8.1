@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Phone.UI.Input;
+using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -14,6 +16,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
+
+//RESET DISABLED !
 
 namespace TicTacToe
 {
@@ -27,10 +31,9 @@ namespace TicTacToe
         public Game()
         {
             this.InitializeComponent();
-            engine = new Engine();
-            UpdateScores();
             this.NavigationCacheMode = NavigationCacheMode.Required;
         }
+
 
         private void TriggerButtons(bool b)
         {
@@ -75,20 +78,27 @@ namespace TicTacToe
                     UpdateScores();
                     TriggerButtons(false);
                 }
-                if(engine.IsBoardFilled())
+                if (engine.IsBoardFilled())
                 {
                     engine.Draw();
                     TriggerButtons(false);
                 }
                 engine.ChangeTurn();
+                tbScore1.FontWeight = tbScore1.FontWeight.Equals(FontWeights.Bold) ? FontWeights.Normal : FontWeights.Bold;
+                tbScore2.FontWeight = tbScore1.FontWeight.Equals(FontWeights.Bold) ? FontWeights.Normal : FontWeights.Bold;
             }
         }
 
-        private void btnRestart_Click(object sender, RoutedEventArgs e)
+        private void Restart(object sender, RoutedEventArgs e)
         {
             CleanBoard();
             engine.Restart();
             TriggerButtons(true);
+        }
+
+        private void Menu(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Menu));
         }
 
         /// <summary>
@@ -98,13 +108,13 @@ namespace TicTacToe
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            // TODO: Prepare page for display here.
-
-            // TODO: If your application contains multiple pages, ensure that you are
-            // handling the hardware Back button by registering for the
-            // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
-            // If you are using the NavigationHelper provided by some templates,
-            // this event is handled for you.
+            SetupModel model = e.Parameter as SetupModel;
+            engine = new Engine(model);
+            UpdateScores();
+            CleanBoard();
+            TriggerButtons(true);
+            tbScore1.FontWeight = FontWeights.Bold;
+            tbScore2.FontWeight = FontWeights.Normal;
         }
     }
 }

@@ -39,7 +39,7 @@
         <TextBlock x:Name="tbScore2" Text="[Y] Player 1: 0" Grid.ColumnSpan="3" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"
                     FontSize="32"/>
 
-        <Button x:Name="btnRestart" Content="Restart" Grid.ColumnSpan="3" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="btnRestart_Click"/>
-        <Button x:Name="btnMainMenu" Content="Main Menu" Grid.ColumnSpan="3" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <Button x:Name="btnRestart" Content="Restart" Grid.ColumnSpan="3" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Restart"/>
+        <Button x:Name="btnMainMenu" Content="Main Menu" Grid.ColumnSpan="3" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="Menu"/>
     </Grid>
 </Page>

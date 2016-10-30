@@ -1,0 +1,48 @@
+﻿<Page
+    x:Class="TicTacToe.Menu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TicTacToe"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Name="MenuGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock Text="Tic Tac Toe" FontSize="50" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Name="btnSinglePlayer" Content="1 Player" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="1" Margin="5,0" IsEnabled="False" Click="ChangePlayer"/>
+        <Button Name="btnMultiPlayer" Content="2 Players" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1" Margin="5,0" Click="ChangePlayer"/>
+
+        <TextBlock Text="[X] Player 1" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Center" Margin="0,5" FontSize="32"/>
+        <TextBox Name="tbPlayerNameX" PlaceholderText="Player 1" Grid.ColumnSpan="2" Grid.Row="3" Margin="0"/>
+
+        <TextBlock Text="[O] Player 2" Grid.ColumnSpan="2" Grid.Row="4" HorizontalAlignment="Center" Margin="0,5" FontSize="32"/>
+        <Button Content="Easy" Grid.ColumnSpan="2" Grid.Row="5" Tag="SinglePlayerControl" Margin="25,0,0,0" Click="ChangeDifficultyLevel"/>
+        <Button Content="Medium" Grid.ColumnSpan="2" Grid.Row="5" Tag="SinglePlayerControl" HorizontalAlignment="Center" Margin="0" IsEnabled="False" Click="ChangeDifficultyLevel"/>
+        <Button Content="Hard" Grid.ColumnSpan="2" Grid.Row="5" Tag="SinglePlayerControl" HorizontalAlignment="Right" Margin="0,0,25,0" Click="ChangeDifficultyLevel"/>
+
+        <TextBox Name="tbPlayerNameO" PlaceholderText="Player 2" Grid.ColumnSpan="2" Grid.Row="5" Margin="0" Tag="MultiPlayerControl" Visibility="Collapsed"/>
+
+        <Button Content="Start" Grid.ColumnSpan="2" Grid.Row="7" HorizontalAlignment="Center" Width="200" VerticalAlignment="Stretch" Margin="0" Click="StartGame"/>
+        <Button Content="Author" Grid.ColumnSpan="2" Grid.Row="8" HorizontalAlignment="Center" Width="200" VerticalAlignment="Stretch" Margin="0" Click="Author"/>
+        <Button Content="Exit" Grid.ColumnSpan="2" Grid.Row="9" HorizontalAlignment="Center" Width="200" VerticalAlignment="Stretch" Margin="0" Click="Exit"/>
+    </Grid>
+</Page> 

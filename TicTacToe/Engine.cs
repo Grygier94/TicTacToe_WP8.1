@@ -16,8 +16,9 @@ namespace TicTacToe
         private Mark currentTurn;
         private int scoreX, scoreO;
         private string playerX, playerO;
+        private DifficultyLevel difficultyLevel;
         private Mark?[,] board;
-
+            
         public int ScoreX
         {
             get { return scoreX; }
@@ -31,13 +32,14 @@ namespace TicTacToe
         public string PlayerX { get { return playerX; } }
         public string PlayerO { get { return playerO; } }
 
-        public Engine()
+        public Engine(SetupModel setup)
         {
             currentTurn = Mark.X;
             board = new Mark?[3, 3];
             ScoreX = ScoreO = 0;
-            playerX = "Player1";
-            playerO = "Player2";
+            playerX = setup.PlayerNameX;
+            playerO = setup.PlayerNameO;
+            difficultyLevel = setup.Level;
         }
 
         private async void ShowMessage(string msg)
@@ -80,12 +82,18 @@ namespace TicTacToe
         {
             if (currentTurn == Mark.X)
             {
-                ShowMessage(playerX + " won! Congratulations!");
+                if (difficultyLevel == DifficultyLevel.Multiplayer)
+                    ShowMessage(playerX + " won! Congratulations!");
+                else
+                    ShowMessage("You won! Congratulations!");
                 ScoreX++;
             }
             else
             {
-                ShowMessage(playerO + " won! Congratulations!");
+                if(difficultyLevel == DifficultyLevel.Multiplayer)
+                    ShowMessage(playerO + " won! Congratulations!");
+                else
+                    ShowMessage(playerO + " won, you lost!");
                 ScoreO++;
             }
         }

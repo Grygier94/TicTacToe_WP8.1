@@ -124,15 +124,17 @@ namespace TicTacToe.TicTacToe_XamlTypeInfo
 
         private void InitTypeTables()
         {
-            _typeNameTable = new string[3];
-            _typeNameTable[0] = "TicTacToe.Game";
+            _typeNameTable = new string[4];
+            _typeNameTable[0] = "TicTacToe.Menu";
             _typeNameTable[1] = "Windows.UI.Xaml.Controls.Page";
             _typeNameTable[2] = "Windows.UI.Xaml.Controls.UserControl";
+            _typeNameTable[3] = "TicTacToe.Game";
 
-            _typeTable = new global::System.Type[3];
-            _typeTable[0] = typeof(global::TicTacToe.Game);
+            _typeTable = new global::System.Type[4];
+            _typeTable[0] = typeof(global::TicTacToe.Menu);
             _typeTable[1] = typeof(global::Windows.UI.Xaml.Controls.Page);
             _typeTable[2] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
+            _typeTable[3] = typeof(global::TicTacToe.Game);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -167,7 +169,8 @@ namespace TicTacToe.TicTacToe_XamlTypeInfo
             return -1;
         }
 
-        private object Activate_0_Game() { return new global::TicTacToe.Game(); }
+        private object Activate_0_Menu() { return new global::TicTacToe.Menu(); }
+        private object Activate_3_Game() { return new global::TicTacToe.Game(); }
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
@@ -179,9 +182,9 @@ namespace TicTacToe.TicTacToe_XamlTypeInfo
             switch (typeIndex)
             {
 
-            case 0:   //  TicTacToe.Game
+            case 0:   //  TicTacToe.Menu
                 userType = new global::TicTacToe.TicTacToe_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_0_Game;
+                userType.Activator = Activate_0_Menu;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
@@ -192,6 +195,13 @@ namespace TicTacToe.TicTacToe_XamlTypeInfo
 
             case 2:   //  Windows.UI.Xaml.Controls.UserControl
                 xamlType = new global::TicTacToe.TicTacToe_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 3:   //  TicTacToe.Game
+                userType = new global::TicTacToe.TicTacToe_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_3_Game;
+                userType.SetIsLocalType();
+                xamlType = userType;
                 break;
             }
             return xamlType;
