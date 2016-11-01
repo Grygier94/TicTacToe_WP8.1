@@ -27,6 +27,7 @@ namespace TicTacToe
     public sealed partial class Game : Page
     {
         private Engine engine;
+        private SetupModel model;
 
         public Game()
         {
@@ -45,6 +46,7 @@ namespace TicTacToe
                         (field as Button).IsEnabled = b;
                 }
             }
+            btnRestart.IsEnabled = !b;
         }
         private void CleanBoard()
         {
@@ -63,7 +65,6 @@ namespace TicTacToe
             tbScore2.Text = string.Format("[O] {0}: {1}", engine.PlayerO, engine.ScoreO);
         }
 
-        //Events
         private void FieldClick(object sender, RoutedEventArgs e)
         {
             Button field = sender as Button;
@@ -72,21 +73,107 @@ namespace TicTacToe
 
             if (engine.PlaceMark(row, column, field))
             {
-                if (engine.Win())
-                {
-                    engine.GameWon();
-                    UpdateScores();
-                    TriggerButtons(false);
-                }
-                if (engine.IsBoardFilled())
-                {
-                    engine.Draw();
-                    TriggerButtons(false);
-                }
-                engine.ChangeTurn();
-                tbScore1.FontWeight = tbScore1.FontWeight.Equals(FontWeights.Bold) ? FontWeights.Normal : FontWeights.Bold;
-                tbScore2.FontWeight = tbScore1.FontWeight.Equals(FontWeights.Bold) ? FontWeights.Normal : FontWeights.Bold;
+                ChangeTurn();
+                LookForWinner();
             }
+        }
+
+        #region ComputerLogic
+        private void ComputerMove(DifficultyLevel level)
+        {
+            int filledFields = grid.Children.Where(o => o is Button)
+                .Where(b => (b as Button).Tag != null && (b as Button).Tag.ToString() == "field")
+                .Where(f => (f as Button).Content != null)
+                .Where(f => (f as Button).Content.ToString() == "X" || (f as Button).Content.ToString() == "O")
+                .Count();
+
+            if (filledFields == 0 || filledFields == 1)
+            {
+                if (!engine.PlaceMark(1, 1, field2_2))
+                    engine.PlaceMark(2, 2, field3_3);
+            }
+
+            else
+            {
+                string pos;
+                switch (level)
+                {
+                    case DifficultyLevel.Easy:
+                        if (engine.IsLastMoveAvailable(out pos))
+                            Move(Int32.Parse(pos[0].ToString()), Int32.Parse(pos[1].ToString()));
+                        else
+                            RandomMove();
+                        break;
+                    case DifficultyLevel.Medium:
+                        if (engine.IsLastMoveAvailable(out pos))
+                            Move(Int32.Parse(pos[0].ToString()), Int32.Parse(pos[1].ToString()));
+                        else if (engine.IsBlockAvailable(out pos))
+                            Move(Int32.Parse(pos[0].ToString()), Int32.Parse(pos[1].ToString()));
+                        else
+                            RandomMove();
+                        break;
+
+                    case DifficultyLevel.Hard:
+                        if (engine.IsLastMoveAvailable(out pos))
+                            Move(Int32.Parse(pos[0].ToString()), Int32.Parse(pos[1].ToString()));
+                        else if (engine.IsBlockAvailable(out pos))
+                            Move(Int32.Parse(pos[0].ToString()), Int32.Parse(pos[1].ToString()));
+                        else if (engine.IsBlockForkAvailable(filledFields, out pos))
+                            Move(Int32.Parse(pos[0].ToString()), Int32.Parse(pos[1].ToString()));
+                        else
+                            RandomMove();
+                        break;
+                }
+            }
+            ChangeTurn();
+            LookForWinner();
+        }
+
+        private void Move(int row, int col)
+        {
+            Button field = FindName(String.Format("field{0}_{1}", row + 1, col + 1)) as Button;
+            engine.PlaceMark(row, col, field);
+        }
+
+        private void RandomMove()
+        {
+            Random rand = new Random();
+            int row;
+            int col;
+            Button field;
+
+            do
+            {
+                row = rand.Next(0, 3);
+                col = rand.Next(0, 3);
+                field = FindName(String.Format("field{0}_{1}", row + 1, col + 1)) as Button;
+            }
+            while (!engine.PlaceMark(row, col, field));
+        }
+        #endregion
+
+        private void LookForWinner()
+        {
+            if (engine.Win())
+            {
+                engine.GameWon();
+                UpdateScores();
+                TriggerButtons(false);
+            }
+            else if (engine.IsBoardFilled())
+            {
+                engine.Draw();
+                TriggerButtons(false);
+            }
+            else if (model.Level != DifficultyLevel.Multiplayer && engine.CurrentTurn == Mark.O)
+                ComputerMove(model.Level);
+        }
+
+        private void ChangeTurn()
+        {
+            engine.ChangeTurn();
+            tbScore1.FontWeight = tbScore1.FontWeight.Equals(FontWeights.Bold) ? FontWeights.Normal : FontWeights.Bold;
+            tbScore2.FontWeight = tbScore1.FontWeight.Equals(FontWeights.Bold) ? FontWeights.Normal : FontWeights.Bold;
         }
 
         private void Restart(object sender, RoutedEventArgs e)
@@ -94,11 +181,14 @@ namespace TicTacToe
             CleanBoard();
             engine.Restart();
             TriggerButtons(true);
+
+            if (model.Level != DifficultyLevel.Multiplayer && engine.CurrentTurn == Mark.O)
+                ComputerMove(model.Level);
         }
 
         private void Menu(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(Menu));
+            Frame.Navigate(typeof(Menu), model);
         }
 
         /// <summary>
@@ -108,7 +198,7 @@ namespace TicTacToe
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            SetupModel model = e.Parameter as SetupModel;
+            model = e.Parameter as SetupModel;
             engine = new Engine(model);
             UpdateScores();
             CleanBoard();

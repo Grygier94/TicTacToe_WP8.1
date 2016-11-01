@@ -32,14 +32,14 @@
         <Button Name="btnMultiPlayer" Content="2 Players" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1" Margin="5,0" Click="ChangePlayer"/>
 
         <TextBlock Text="[X] Player 1" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Center" Margin="0,5" FontSize="32"/>
-        <TextBox Name="tbPlayerNameX" PlaceholderText="Player 1" Grid.ColumnSpan="2" Grid.Row="3" Margin="0"/>
+        <TextBox Name="tbPlayerNameX" PlaceholderText="Player 1" Grid.ColumnSpan="2" Grid.Row="3" Margin="0" MaxLength="10"/>
 
         <TextBlock Text="[O] Player 2" Grid.ColumnSpan="2" Grid.Row="4" HorizontalAlignment="Center" Margin="0,5" FontSize="32"/>
-        <Button Content="Easy" Grid.ColumnSpan="2" Grid.Row="5" Tag="SinglePlayerControl" Margin="25,0,0,0" Click="ChangeDifficultyLevel"/>
-        <Button Content="Medium" Grid.ColumnSpan="2" Grid.Row="5" Tag="SinglePlayerControl" HorizontalAlignment="Center" Margin="0" IsEnabled="False" Click="ChangeDifficultyLevel"/>
-        <Button Content="Hard" Grid.ColumnSpan="2" Grid.Row="5" Tag="SinglePlayerControl" HorizontalAlignment="Right" Margin="0,0,25,0" Click="ChangeDifficultyLevel"/>
+        <Button Name="btnEasy" Content="Easy" Grid.ColumnSpan="2" Grid.Row="5" Tag="SinglePlayerControl" Margin="25,0,0,0" Click="ChangeDifficultyLevel"/>
+        <Button Name="btnMedium" Content="Medium" Grid.ColumnSpan="2" Grid.Row="5" Tag="SinglePlayerControl" HorizontalAlignment="Center" Margin="0" IsEnabled="False" Click="ChangeDifficultyLevel"/>
+        <Button Name="btnHard" Content="Hard" Grid.ColumnSpan="2" Grid.Row="5" Tag="SinglePlayerControl" HorizontalAlignment="Right" Margin="0,0,25,0" Click="ChangeDifficultyLevel"/>
 
-        <TextBox Name="tbPlayerNameO" PlaceholderText="Player 2" Grid.ColumnSpan="2" Grid.Row="5" Margin="0" Tag="MultiPlayerControl" Visibility="Collapsed"/>
+        <TextBox Name="tbPlayerNameO" PlaceholderText="Player 2" Grid.ColumnSpan="2" Grid.Row="5" Margin="0" Tag="MultiPlayerControl" Visibility="Collapsed" MaxLength="10"/>
 
         <Button Content="Start" Grid.ColumnSpan="2" Grid.Row="7" HorizontalAlignment="Center" Width="200" VerticalAlignment="Stretch" Margin="0" Click="StartGame"/>
         <Button Content="Author" Grid.ColumnSpan="2" Grid.Row="8" HorizontalAlignment="Center" Width="200" VerticalAlignment="Stretch" Margin="0" Click="Author"/>
