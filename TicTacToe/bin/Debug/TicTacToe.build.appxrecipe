@@ -25,6 +25,9 @@
     <AppxPackagedFile Include="D:\Repositories\TicTacToe_WP8.1\TicTacToe\bin\Debug\TicTacToe.exe">
       <PackagePath>TicTacToe.exe</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Repositories\TicTacToe_WP8.1\TicTacToe\Fonts\LAIKA.otf">
+      <PackagePath>Fonts\LAIKA.otf</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Repositories\TicTacToe_WP8.1\TicTacToe\Assets\Logo.scale-240.png">
       <PackagePath>Assets\Logo.scale-240.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>

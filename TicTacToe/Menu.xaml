@@ -8,6 +8,30 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <Style TargetType="Button" x:Key="Player">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Grid.Row" Value="1"/>
+            <Setter Property="Margin" Value="5,0"/>
+            <Setter Property="FontFamily" Value="Fonts/LAIKA.otf#LAIKA"/>
+        </Style>
+        <Style TargetType="Button" x:Key="Difficulty">
+            <Setter Property="Grid.ColumnSpan" Value="2"/>
+            <Setter Property="Grid.Row" Value="5"/>
+            <Setter Property="Margin" Value="5,0"/>
+            <Setter Property="Tag" Value="SinglePlayerControl"/>
+            <Setter Property="FontFamily" Value="Fonts/LAIKA.otf#LAIKA"/>
+        </Style>
+        <Style TargetType="Button" x:Key="Menu">
+            <Setter Property="Grid.ColumnSpan" Value="2"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="FontFamily" Value="Fonts/LAIKA.otf#LAIKA"/>
+        </Style>
+    </Page.Resources>
+
     <Grid Name="MenuGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="1.5*"/>
@@ -26,23 +50,23 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        
-        <TextBlock Text="Tic Tac Toe" FontSize="50" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button Name="btnSinglePlayer" Content="1 Player" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="1" Margin="5,0" IsEnabled="False" Click="ChangePlayer"/>
-        <Button Name="btnMultiPlayer" Content="2 Players" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1" Margin="5,0" Click="ChangePlayer"/>
 
-        <TextBlock Text="[X] Player 1" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Center" Margin="0,5" FontSize="32"/>
+        <TextBlock Text="Tic Tac Toe" FontSize="50" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
+        <Button Name="btnSinglePlayer" Content="1 Player"  Grid.Column="0" IsEnabled="False" Click="ChangePlayer" Style="{StaticResource Player}"/>
+        <Button Name="btnMultiPlayer" Content="2 Players"  Grid.Column="1" Click="ChangePlayer" Style="{StaticResource Player}"/>
+
+        <TextBlock Text="[X] Player 1" Grid.ColumnSpan="2" Grid.Row="2" Margin="0,5" FontSize="32"/>
         <TextBox Name="tbPlayerNameX" PlaceholderText="Player 1" Grid.ColumnSpan="2" Grid.Row="3" Margin="0" MaxLength="10"/>
 
-        <TextBlock Text="[O] Player 2" Grid.ColumnSpan="2" Grid.Row="4" HorizontalAlignment="Center" Margin="0,5" FontSize="32"/>
-        <Button Name="btnEasy" Content="Easy" Grid.ColumnSpan="2" Grid.Row="5" Tag="SinglePlayerControl" Margin="25,0,0,0" Click="ChangeDifficultyLevel"/>
-        <Button Name="btnMedium" Content="Medium" Grid.ColumnSpan="2" Grid.Row="5" Tag="SinglePlayerControl" HorizontalAlignment="Center" Margin="0" IsEnabled="False" Click="ChangeDifficultyLevel"/>
-        <Button Name="btnHard" Content="Hard" Grid.ColumnSpan="2" Grid.Row="5" Tag="SinglePlayerControl" HorizontalAlignment="Right" Margin="0,0,25,0" Click="ChangeDifficultyLevel"/>
+        <TextBlock Text="[O] Player 2" Grid.ColumnSpan="2" Grid.Row="4" Margin="0,5" FontSize="32"/>
+        <Button Name="btnEasy" Content="Easy" Margin="25,0,0,0" Click="ChangeDifficultyLevel" Style="{StaticResource Difficulty}"/>
+        <Button Name="btnMedium" Content="Medium" HorizontalAlignment="Center" Margin="0" IsEnabled="False" Click="ChangeDifficultyLevel" Style="{StaticResource Difficulty}"/>
+        <Button Name="btnHard" Content="Hard" HorizontalAlignment="Right" Margin="0,0,25,0" Click="ChangeDifficultyLevel" Style="{StaticResource Difficulty}"/>
 
         <TextBox Name="tbPlayerNameO" PlaceholderText="Player 2" Grid.ColumnSpan="2" Grid.Row="5" Margin="0" Tag="MultiPlayerControl" Visibility="Collapsed" MaxLength="10"/>
 
-        <Button Content="Start" Grid.ColumnSpan="2" Grid.Row="7" HorizontalAlignment="Center" Width="200" VerticalAlignment="Stretch" Margin="0" Click="StartGame"/>
-        <Button Content="Author" Grid.ColumnSpan="2" Grid.Row="8" HorizontalAlignment="Center" Width="200" VerticalAlignment="Stretch" Margin="0" Click="Author"/>
-        <Button Content="Exit" Grid.ColumnSpan="2" Grid.Row="9" HorizontalAlignment="Center" Width="200" VerticalAlignment="Stretch" Margin="0" Click="Exit"/>
+        <Button Style="{StaticResource Menu}" Content="Start" Grid.Row="7" Click="StartGame" />
+        <Button Style="{StaticResource Menu}" Content="Author" Grid.Row="8" Click="Author"/>
+        <Button Style="{StaticResource Menu}" Content="Exit" Grid.Row="9" Click="Exit"/>
     </Grid>
 </Page> 
